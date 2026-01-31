@@ -1,4 +1,4 @@
-/*
+
 #include <fstream>
 #include <iostream>
 #include <string>
@@ -24,4 +24,4 @@ int main() {
    return 0;
 }
 
-*/
+// type hello.txt into console to print what's in the hello.txt file
