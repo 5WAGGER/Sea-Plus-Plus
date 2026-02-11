@@ -1,8 +1,8 @@
  /* 
-  * 5WAGGER
+  * Quentin Jeriko
   * COMS 215
   * 2/9/2026
-  * basic_blackjack
+  * Project 7.4
 
   * This program allows the player to play a simple version of blackjack.
   * The program generates a random number between 1 and 10 each time the player gets a card. 
@@ -30,19 +30,22 @@ int main(){
     int nextCard;
     bool hasWon;
     char input;
-    
+    bool gameIsGoing;
+    bool roundIsGoing;
     char answer;
     int total;
     bool busted;
     answer = 'y';
     
     //start asking to play (potentially multiple) round(s)
-    while (answer == 'y') {
+    while (answer == 'y' && gameIsGoing) {
         //starting round (game is Going)
         // start of round
         total = 0;
         hasWon = false;
         busted = false;
+        gameIsGoing = true;
+        roundIsGoing = true;
         firstCard = rand() % range + 1;
         secondCard = rand() % range + 1;
         cout << "First cards: " << firstCard << ", " << secondCard << endl;
@@ -51,27 +54,33 @@ int main(){
         
         //start of round
         // start gameIsGoing loop
-        while (total < 21) {
+        while (total < 21 && roundIsGoing) {
             cout << "Do you want another card (y/n)? ";
             cin >> input;
+
             if (input == 'n') {
-                total = 86;
+                roundIsGoing = false;
             }
+
             if (input == 'y') {
-                nextCard = rand() % range + 1;
+                nextCard = rand() % range;
+                nextCard++;
                 cout << "Card: " << nextCard << endl;
                 total += nextCard;
                 cout << "Total: " << total << endl;
             }
+
             if (total == 21){
                 hasWon = true;
             }
+
             if (total > 21){
                 busted = true;
             }
+
         }// round is finished
 
-    //finishing round
+    //output of finished round
 
     if (busted){
         cout << "Bust." << endl;
@@ -80,13 +89,12 @@ int main(){
         cout << "Congratulations!" << endl;
     }
     
-    //finished round 
+    // asking for another round
 
     cout << "Would you like to play again (y/n)? ";
     cin >> answer;
 
-
     }//done askingToPlayMore
+
 return 0;
 }// program complete
-
