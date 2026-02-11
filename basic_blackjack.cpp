@@ -21,7 +21,7 @@ using namespace std;
 
 int main(){
     //This function call uses the clock time to initialize the random number generator
-    srand(static_cast<unsigned>(time(nullptr)));
+    //srand(static_cast<unsigned>(time(nullptr)));
 
     //initializing all variables
     int range = 10;
@@ -43,10 +43,8 @@ int main(){
         total = 0;
         hasWon = false;
         busted = false;
-        firstCard = rand() % range;
-        firstCard++;
-        secondCard = rand() % range;
-        secondCard++;
+        firstCard = rand() % range + 1;
+        secondCard = rand() % range + 1;
         cout << "First cards: " << firstCard << ", " << secondCard << endl;
         total = firstCard + secondCard;
         cout << "Total: " << total << endl;
@@ -60,8 +58,7 @@ int main(){
                 total = 86;
             }
             if (input == 'y') {
-                nextCard = rand() % range;
-                nextCard++;
+                nextCard = rand() % range + 1;
                 cout << "Card: " << nextCard << endl;
                 total += nextCard;
                 cout << "Total: " << total << endl;
