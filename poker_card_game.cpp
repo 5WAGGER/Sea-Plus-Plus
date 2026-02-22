@@ -281,10 +281,14 @@ int main() {
     cout << "Enter " << HAND_SIZE << " numeric cards, no face cards. "
          << "Use " << LOWEST_NUM << " - " << HIGHEST_NUM << "." << endl;
 
-    for (int i = 0; i < HAND_SIZE; ++i) {
-        cout << "Card " << (i + 1) << ": ";
-        cin >> hand[i];
+    
+    int i = HAND_SIZE;  
+    while (i > 0) {
+        cout << "Card " << (HAND_SIZE - i + 1) << ": ";
+        cin >> hand[HAND_SIZE - i];
+        i--; 
     }
+
 
     if (containsFourOfaKind(hand)) {
         cout << "Four of a kind!" << endl;
