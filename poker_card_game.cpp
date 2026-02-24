@@ -1,91 +1,39 @@
+ /*
+  * Quentin Jeriko
+  * COMS 215
+  * 2/23/2026
+  * Project 13.1
+  * This program is like a simplified game of poker where it verifies 
+  * which winning hand the player has.
+  * For version 13.1 HIGHEST_NUM is set to 9, HAND_SIZE is set to 5, and LOWEST_NUM is set to 2.
+  * Winning poker hands available for this program:
+  * four of a kind, full house, straight, 
+  * three of a kind,two pairs, pair, high card.
+  * 
+  */
+
 #include <iostream>
+
 using namespace std;
 
-
-
-/*
-============================================================
- Project 13.1 – Poker Hand Classifier
- Author: [Your Name]
- Course: COMS 215 – Programming Concepts & Methodology I
- Instructor: Dave Harden
- Description:
-     Program reads numeric “cards” from the user (values between
-     LOWEST_NUM and HIGHEST_NUM) and determines the poker
-     hand type represented. Supports variable hand sizes
-     for Parts A, B, and C.
-============================================================
-*/
-
-
-
-// ============================================================
-// CONFIGURATION SECTION
-// ============================================================
-//
-// Part A configuration (default):
-//   HAND_SIZE = 5
-//   LOWEST_NUM = 2
-//   HIGHEST_NUM = 9
-//
-// Part B configuration:
-//   HAND_SIZE = 6
-//   LOWEST_NUM = 1
-//   HIGHEST_NUM = 13
-//
-// Part C configuration:
-//   HAND_SIZE = 8
-//   LOWEST_NUM = 1
-//   HIGHEST_NUM = 13
-//
-// ------------------------------------------------------------
-// INSTRUCTIONS:
-// Uncomment the group labeled “Part A”, “Part B”, or “Part C”
-// depending on which version you are submitting or testing.
-// ------------------------------------------------------------
-
-
-// ---------- Part A ----------
-// const int HAND_SIZE = 5;
-// const int LOWEST_NUM = 2;
-// const int HIGHEST_NUM = 9;
-
-
-// ---------- Part B ----------
-// const int HAND_SIZE = 6;
-// const int LOWEST_NUM = 1;
-// const int HIGHEST_NUM = 13;
-
-
-// ---------- Part C ----------
-const int HAND_SIZE = 8;
-const int LOWEST_NUM = 1;
-const int HIGHEST_NUM = 13;
-// ----------------------------
-
-
-
-
-
-// ============================================================
-// HELPER FUNCTION
-// ============================================================
+const int HAND_SIZE = 5;
+const int LOWEST_NUM = 2;
+const int HIGHEST_NUM = 9;
 
 /*
-============================================================
- Function: countValues
- Purpose:
-     Builds an integer frequency table that counts how many
-     times each card value appears in the input hand array.
- Parameters:
-     hand[]   – array of cards
-     counts[] – array storing frequency of each value
-     lowest   – minimum possible card
-     highest  – maximum possible card
-============================================================
+This is a helpful function that is reused by more functions.
+This function counts how many recurrences of card numbers
+and stores them in each index of the counts[] array
+
+pre: hand array, counts array, LOWEST_NUM integer, and HIGHEST_NUM integer
+post: none.
+instead of returning a value is modifies the counts[] array.
 */
-void countValues(const int hand[], int counts[], int lowest, int highest) {
+
+void frequencyFinder(const int hand[], int counts[], int lowest, int highest){
+
     int range = highest - lowest + 1;
+    
     for (int i = 0; i < range; ++i) {
         counts[i] = 0;
     }
@@ -93,202 +41,161 @@ void countValues(const int hand[], int counts[], int lowest, int highest) {
     for (int i = 0; i < HAND_SIZE; ++i) {
         counts[hand[i] - lowest]++;
     }
+
+    int maxCount = 0;
+    for (int i = 0; i < range; ++i){
+        if (counts[i] > maxCount) {
+            maxCount = counts[i];
+        }
+    }
 }
 
-
-
-
-
-
-
-
 /*
-============================================================
- Function: containsPair
- Purpose:
-     Returns true if there is exactly one pair of matching
-     card values and no triples or quads of any single value.
-============================================================
+This function sees if there is 1 pair of matching cards.
+
+pre: hand array
+post: returns a boolean value based if the given cards has a pair
 */
+
 bool containsPair(const int hand[]) {
-    int counts[HIGHEST_NUM - LOWEST_NUM + 1];
-    countValues(hand, counts, LOWEST_NUM, HIGHEST_NUM);
+    int range = HIGHEST_NUM - LOWEST_NUM + 1;
+    int counts[range];
+    frequencyFinder(hand, counts, LOWEST_NUM, HIGHEST_NUM);
 
     int pairCount = 0;
-    for (int i = 0; i < (HIGHEST_NUM - LOWEST_NUM + 1); ++i) {
-        if (counts[i] == 2) pairCount++;
-        if (counts[i] > 2) return false;
+
+    for (int i = 0; i < range; ++i){
+        if (counts[i] == 2) {pairCount++;}
+        if (counts[i] > 2) {return false;}
     }
-    return pairCount == 1;
+    return (pairCount == 1);
 }
 
-
-
-
-
-
-
-
 /*
-============================================================
- Function: containsTwoPair
- Purpose:
-     Returns true if two or more distinct pairs of values
-     appear in the hand.
-============================================================
+This function sees if there is 2 pairs of matching cards.
+
+pre: hand array
+post: returns a boolean value based if the given cards has two pairs
 */
+
 bool containsTwoPair(const int hand[]) {
     int counts[HIGHEST_NUM - LOWEST_NUM + 1];
-    countValues(hand, counts, LOWEST_NUM, HIGHEST_NUM);
+    frequencyFinder(hand, counts, LOWEST_NUM, HIGHEST_NUM);
 
-    int pairCount = 0;
+    int pairAmount = 0;
     for (int i = 0; i < (HIGHEST_NUM - LOWEST_NUM + 1); ++i) {
-        if (counts[i] == 2) pairCount++;
+        if (counts[i] == 2) pairAmount++;
     }
-    return pairCount >= 2;
+    return 2 <= pairAmount;
 }
 
-
-
-
-
-
-
-
-/*
-============================================================
- Function: containsThreeOfaKind
- Purpose:
-     Returns true if any value appears exactly three times.
-============================================================
-*/
 bool containsThreeOfaKind(const int hand[]) {
+
     int counts[HIGHEST_NUM - LOWEST_NUM + 1];
-    countValues(hand, counts, LOWEST_NUM, HIGHEST_NUM);
+
+    frequencyFinder(hand, counts, LOWEST_NUM, HIGHEST_NUM);
 
     for (int i = 0; i < (HIGHEST_NUM - LOWEST_NUM + 1); ++i) {
-        if (counts[i] == 3) return true;
+        if (counts[i] == 3) {return true;}
     }
     return false;
 }
 
-
-
-
-
-
-
-
 /*
-============================================================
- Function: containsStraight
- Purpose:
-     Returns true if five consecutive numeric values appear
-     anywhere in the hand (order does not matter).
- Notes:
-     Works for any card range; does not sort hand[].
-============================================================
-*/
-bool containsStraight(const int hand[]) {
-    int counts[HIGHEST_NUM - LOWEST_NUM + 1];
-    countValues(hand, counts, LOWEST_NUM, HIGHEST_NUM);
+This function sees if there is five numbers going up in order when rearranged.
+example: 9, 2, 4, 3, 6, 5
 
-    int consecutive = 0;
+pre: hand array
+post: returns a boolean value based if the given cards is a straight
+*/
+
+bool containsStraight(const int hand[]){
+    int counts[HIGHEST_NUM - LOWEST_NUM + 1];
+
+    frequencyFinder(hand, counts, LOWEST_NUM, HIGHEST_NUM);
+
+    int flowForward = 0;
+
     for (int i = 0; i < (HIGHEST_NUM - LOWEST_NUM + 1); ++i) {
         if (counts[i] > 0) {
-            consecutive++;
-            if (consecutive >= 5) return true;
-        } else {
-            consecutive = 0;
+            flowForward++;
+            if (5 <= flowForward) {return true;}
+        }
+        else {
+            flowForward = 0;
         }
     }
     return false;
 }
 
-
-
-
-
-
-
-
 /*
-============================================================
- Function: containsFullHouse
- Purpose:
-     Returns true if a hand contains both "exactly three of one
-     value" and "exactly two of another" card value.
-============================================================
+This function sees if there is a two of kind and a 3 of kind.
+example: 2, 2, 3, 3, 3
+
+pre: hand array
+post: returns a boolean value based if the given cards is a full house
 */
-bool containsFullHouse(const int hand[]) {
+
+bool containsFullHouse(const int hand[]){
     int counts[HIGHEST_NUM - LOWEST_NUM + 1];
-    countValues(hand, counts, LOWEST_NUM, HIGHEST_NUM);
 
-    bool hasThree = false;
-    bool hasPair = false;
+    frequencyFinder(hand, counts, LOWEST_NUM, HIGHEST_NUM);
 
-    for (int i = 0; i < (HIGHEST_NUM - LOWEST_NUM + 1); ++i) {
-        if (counts[i] == 3) hasThree = true;
-        else if (counts[i] == 2) hasPair = true;
+    bool isThreeOfaKind = false;
+    bool isTwoPair = false;
+
+    for (int i = 0; i < (HIGHEST_NUM - LOWEST_NUM + 1); ++i){
+        if (counts[i] == 3){
+            isThreeOfaKind = true;
+        }
+        else if (counts[i] == 2){
+            isTwoPair = true;
+        }
     }
-    return hasThree && hasPair;
+    if (isThreeOfaKind && isTwoPair){
+        return true;
+    }
+    else {
+        return false;
+    }
 }
 
-
-
-
-
-
-
-
 /*
-============================================================
- Function: containsFourOfaKind
- Purpose:
-     Returns true if four or more identical card values appear
-     in the hand. Supports larger hands (6, 8, etc.).
-============================================================
+This function sees if there is a four of kind.
+example: 2, 3, 3, 3, 3
+
+pre: hand array
+post: returns a boolean value based if the given cards is a four of a kind.
 */
-bool containsFourOfaKind(const int hand[]) {
+
+bool containsFourOfaKind(const int hand[]){
+
     int counts[HIGHEST_NUM - LOWEST_NUM + 1];
-    countValues(hand, counts, LOWEST_NUM, HIGHEST_NUM);
+
+    frequencyFinder(hand, counts, LOWEST_NUM, HIGHEST_NUM);
 
     for (int i = 0; i < (HIGHEST_NUM - LOWEST_NUM + 1); ++i) {
-        if (counts[i] >= 4) return true;
+        if (4 <= counts[i]) {
+            return true;
+        }
     }
     return false;
 }
 
+//Program starts and uses functions to see which is the winning hand.
+//Also it gets input from the player to see which cards are pulled.
 
-
-
-
-
-
-
-/*
-============================================================
- Function: main
- Purpose:
-     Prompts for user input, evaluates the hand by calling
-     classification functions, and prints the highest-value
-     hand type found.
-============================================================
-*/
 int main() {
+
     int hand[HAND_SIZE];
 
     cout << "Enter " << HAND_SIZE << " numeric cards, no face cards. "
-         << "Use " << LOWEST_NUM << " - " << HIGHEST_NUM << "." << endl;
-
+    << "Use " << LOWEST_NUM << " - " << HIGHEST_NUM << "." << endl;
     
-    int i = HAND_SIZE;  
-    while (i > 0) {
-        cout << "Card " << (HAND_SIZE - i + 1) << ": ";
-        cin >> hand[HAND_SIZE - i];
-        i--; 
+    for (int cardIndex = 0; cardIndex < HAND_SIZE; ++cardIndex){
+        cout << "Card " << (cardIndex + 1) << ": ";
+        cin >> hand[cardIndex];
     }
-
 
     if (containsFourOfaKind(hand)) {
         cout << "Four of a kind!" << endl;
@@ -311,6 +218,5 @@ int main() {
     else {
         cout << "High card!" << endl;
     }
-
     return 0;
 }
