@@ -2,10 +2,10 @@
   * Quentin Jeriko
   * COMS 215
   * 2/23/2026
-  * Project 13.1 with Modified Constants
+  * Project 13.1 with More Modified Constants
   * This program is like a simplified game of poker where it verifies 
   * which winning hand the player has.
-  * For version 13.25.1 HIGHEST_NUM is set to 13, HAND_SIZE is set to 6, and LOWEST_NUM is set to 1.
+  * For version 13.26.1 HIGHEST_NUM is set to 13, HAND_SIZE is set to 8, and LOWEST_NUM is set to 1.
   * Winning poker hands available for this program:
   * four of a kind, full house, straight, 
   * three of a kind,two pairs, pair, high card.
@@ -16,7 +16,7 @@
 
 using namespace std;
 
-const int HAND_SIZE = 6;
+const int HAND_SIZE = 8;
 const int LOWEST_NUM = 1;
 const int HIGHEST_NUM = 13;
 
@@ -103,7 +103,7 @@ bool containsThreeOfaKind(const int hand[]) {
 
 /*
 This function sees if there are still 5 numbers going up in order when rearranged.
-example: 4, 2, 6, 8, 7, 5
+example: 4, 2, 6, 8, 7, 5, 2, 2
 
 pre: hand array
 post: returns a boolean value based if the given cards is a straight
@@ -132,7 +132,7 @@ bool containsStraight(const int hand[]){
 
 /*
 This function sees if there is a two of kind and a 3 of kind.
-example: 2, 2, 3, 3, 3, 7
+example: 2, 2, 3, 3, 3, 7, 1, 5
 
 pre: hand array
 post: returns a boolean value based if the given cards is a full house
@@ -166,7 +166,7 @@ bool containsFullHouse(const int hand[]){
 
 /*
 This function sees if there is a four of kind.
-example: 2, 3, 3, 3, 3, 7
+example: 2, 3, 3, 3, 3, 7, 1, 6
 
 pre: hand array
 post: returns a boolean value based if the given cards is a four of a kind.
