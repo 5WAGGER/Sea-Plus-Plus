@@ -2,10 +2,10 @@
   * Quentin Jeriko
   * COMS 215
   * 2/23/2026
-  * Project 13.1
+  * Project 13.1 with Modified Constants
   * This program is like a simplified game of poker where it verifies 
   * which winning hand the player has.
-  * For version 13.1 HIGHEST_NUM is set to 9, HAND_SIZE is set to 5, and LOWEST_NUM is set to 2.
+  * For version 13.25.1 HIGHEST_NUM is set to 13, HAND_SIZE is set to 6, and LOWEST_NUM is set to 1.
   * Winning poker hands available for this program:
   * four of a kind, full house, straight, 
   * three of a kind,two pairs, pair, high card.
@@ -16,9 +16,9 @@
 
 using namespace std;
 
-const int HAND_SIZE = 5;
-const int LOWEST_NUM = 2;
-const int HIGHEST_NUM = 9;
+const int HAND_SIZE = 6;
+const int LOWEST_NUM = 1;
+const int HIGHEST_NUM = 13;
 
 /*
 This is a helpful function that is reused by more functions.
@@ -102,8 +102,8 @@ bool containsThreeOfaKind(const int hand[]) {
 }
 
 /*
-This function sees if there is five numbers going up in order when rearranged.
-example: 9, 2, 4, 3, 6, 5
+This function sees if there are still 5 numbers going up in order when rearranged.
+example: 4, 2, 6, 8, 7, 5
 
 pre: hand array
 post: returns a boolean value based if the given cards is a straight
@@ -119,7 +119,9 @@ bool containsStraight(const int hand[]){
     for (int i = 0; i < (HIGHEST_NUM - LOWEST_NUM + 1); ++i) {
         if (counts[i] > 0) {
             flowForward++;
-            if (5 <= flowForward) {return true;}
+            if (5 <= flowForward) {
+                return true;
+            }
         }
         else {
             flowForward = 0;
@@ -130,7 +132,7 @@ bool containsStraight(const int hand[]){
 
 /*
 This function sees if there is a two of kind and a 3 of kind.
-example: 2, 2, 3, 3, 3
+example: 2, 2, 3, 3, 3, 7
 
 pre: hand array
 post: returns a boolean value based if the given cards is a full house
@@ -141,18 +143,20 @@ bool containsFullHouse(const int hand[]){
 
     frequencyFinder(hand, counts, LOWEST_NUM, HIGHEST_NUM);
 
-    bool isThreeOfaKind = false;
-    bool isTwoPair = false;
+    // bugfix for bigger hand 
+
+    int areThreeOfaKinds = 0;
+    int areTwoPairs = 0;
 
     for (int i = 0; i < (HIGHEST_NUM - LOWEST_NUM + 1); ++i){
         if (counts[i] == 3){
-            isThreeOfaKind = true;
+            areThreeOfaKinds++;
         }
         else if (counts[i] == 2){
-            isTwoPair = true;
+            areTwoPairs++;
         }
     }
-    if (isThreeOfaKind && isTwoPair){
+    if (areThreeOfaKinds == 1 && areTwoPairs == 1){
         return true;
     }
     else {
@@ -162,7 +166,7 @@ bool containsFullHouse(const int hand[]){
 
 /*
 This function sees if there is a four of kind.
-example: 2, 3, 3, 3, 3
+example: 2, 3, 3, 3, 3, 7
 
 pre: hand array
 post: returns a boolean value based if the given cards is a four of a kind.
