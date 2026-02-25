@@ -1,68 +1,83 @@
+ /*
+  * Quentin Jeriko
+  * COMS 215
+  * 2/25/2026
+  * Project 14.1
+  * This program computes fractions using seven methods.
+  * Member Functions for Fractions in this program:
+  * addedTo, subtract, multipliedBy,
+  * set, dividedBy, isEqualTo, and print
+  */
+
 #include <iostream>
 using namespace std;
 
-// Class declaration
-class Fraction {
-private:
-    int top;    // the top number (numerator)
-    int bottom; // the bottom number (denominator)
+// Class declaration goes here.
+class Fraction{
+    private:
+        int top;
+        int bottom;
 
-public:
-    void set(int numerator, int denominator);
-    Fraction addedTo(Fraction inputFraction);
-    Fraction subtract(Fraction inputFraction);
-    Fraction multipliedBy(Fraction inputFraction);
-    Fraction dividedBy(Fraction inputFraction);
-    bool isEqualTo(Fraction inputFraction);
-    void print();
-};  // <-- End of class Fraction
+    public:
+        void set(int numerator, int denominator);
+        Fraction addedTo(Fraction inputFraction);
+        Fraction subtract(Fraction inputFraction);
+        Fraction multipliedBy(Fraction inputFraction);
+        Fraction dividedBy(Fraction inputFraction);
+        bool isEqualTo(Fraction inputFraction);
+        void print();
+}; // class finished
 
+// Implementation of class member functions goes here.
 
-// Implementation of member functions
-
-void Fraction::set(int numerator, int denominator) {
+//adds int values on top and bottom of fraction
+void Fraction::set(int numerator, int denominator){
     top = numerator;
     bottom = denominator;
 }
 
-Fraction Fraction::addedTo(Fraction inputFraction) {
+//outputs into computer the values set from above
+void Fraction::print(){
+    cout << top << "/" << bottom;
+}
+
+//allows fractions to be added
+Fraction Fraction::addedTo(Fraction inputFraction){
     Fraction outputFraction;
     outputFraction.top = top * inputFraction.bottom + inputFraction.top * bottom;
     outputFraction.bottom = bottom * inputFraction.bottom;
     return outputFraction;
 }
 
-Fraction Fraction::subtract(Fraction inputFraction) {
+//allows fractions to be subtracted
+Fraction Fraction::subtract(Fraction inputFraction){
     Fraction outputFraction;
     outputFraction.top = top * inputFraction.bottom - inputFraction.top * bottom;
     outputFraction.bottom = bottom * inputFraction.bottom;
     return outputFraction;
 }
 
-Fraction Fraction::multipliedBy(Fraction inputFraction) {
+//allows fractions to be multiplied
+Fraction Fraction::multipliedBy(Fraction inputFraction){
     Fraction outputFraction;
     outputFraction.top = top * inputFraction.top;
     outputFraction.bottom = bottom * inputFraction.bottom;
     return outputFraction;
 }
 
-Fraction Fraction::dividedBy(Fraction inputFraction) {
+//allows fractions to be multiplied by the reciprocal (divided)
+Fraction Fraction::dividedBy(Fraction inputFraction){
     Fraction outputFraction;
     outputFraction.top = top * inputFraction.bottom;
     outputFraction.bottom = bottom * inputFraction.top;
     return outputFraction;
 }
 
+//checks to see if fractions have the same values
 bool Fraction::isEqualTo(Fraction inputFraction) {
     return (top * inputFraction.bottom == bottom * inputFraction.top);
 }
 
-void Fraction::print() {
-    cout << top << "/" << bottom;
-}
-
-
-// Client program (must not be modified)
 int main()
 {
     Fraction f1;
@@ -112,5 +127,5 @@ int main()
         cout << "The two Fractions are equal." << endl;
     } else {
         cout << "The two Fractions are not equal." << endl;
-    }
+    } 
 }
