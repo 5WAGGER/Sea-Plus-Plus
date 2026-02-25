@@ -4,8 +4,8 @@ using namespace std;
 // Class declaration
 class Fraction {
 private:
-    int numerator;
-    int denominator;
+    int top;    // the top number (numerator)
+    int bottom; // the bottom number (denominator)
 
 public:
     void set(int n, int d);
@@ -21,44 +21,44 @@ public:
 // Implementation of member functions
 
 void Fraction::set(int n, int d) {
-    numerator = n;
-    denominator = d;
+    top = n;
+    bottom = d;
 }
 
 Fraction Fraction::addedTo(Fraction f) {
     Fraction outputFraction;
-    outputFraction.numerator = numerator * f.denominator + f.numerator * denominator;
-    outputFraction.denominator = denominator * f.denominator;
+    outputFraction.top = top * f.bottom + f.top * bottom;
+    outputFraction.bottom = bottom * f.bottom;
     return outputFraction;
 }
 
 Fraction Fraction::subtract(Fraction f) {
     Fraction outputFraction;
-    outputFraction.numerator = numerator * f.denominator - f.numerator * denominator;
-    outputFraction.denominator = denominator * f.denominator;
+    outputFraction.top = top * f.bottom - f.top * bottom;
+    outputFraction.bottom = bottom * f.bottom;
     return outputFraction;
 }
 
 Fraction Fraction::multipliedBy(Fraction f) {
     Fraction outputFraction;
-    outputFraction.numerator = numerator * f.numerator;
-    outputFraction.denominator = denominator * f.denominator;
+    outputFraction.top = top * f.top;
+    outputFraction.bottom = bottom * f.bottom;
     return outputFraction;
 }
 
 Fraction Fraction::dividedBy(Fraction f) {
     Fraction outputFraction;
-    outputFraction.numerator = numerator * f.denominator;
-    outputFraction.denominator = denominator * f.numerator;
+    outputFraction.top = top * f.bottom;
+    outputFraction.bottom = bottom * f.top;
     return outputFraction;
 }
 
 bool Fraction::isEqualTo(Fraction f) {
-    return (numerator * f.denominator == denominator * f.numerator);
+    return (top * f.bottom == bottom * f.top);
 }
 
 void Fraction::print() {
-    cout << numerator << "/" << denominator;
+    cout << top << "/" << bottom;
 }
 
 
