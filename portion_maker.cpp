@@ -9,11 +9,11 @@ private:
 
 public:
     void set(int numerator, int denominator);
-    Fraction addedTo(Fraction f);
-    Fraction subtract(Fraction f);
-    Fraction multipliedBy(Fraction f);
-    Fraction dividedBy(Fraction f);
-    bool isEqualTo(Fraction f);
+    Fraction addedTo(Fraction aFraction);
+    Fraction subtract(Fraction aFraction);
+    Fraction multipliedBy(Fraction aFraction);
+    Fraction dividedBy(Fraction aFraction);
+    bool isEqualTo(Fraction aFraction);
     void print();
 };  // <-- End of class Fraction
 
@@ -25,36 +25,36 @@ void Fraction::set(int numerator, int denominator) {
     bottom = denominator;
 }
 
-Fraction Fraction::addedTo(Fraction f) {
+Fraction Fraction::addedTo(Fraction aFraction) {
     Fraction outputFraction;
-    outputFraction.top = top * f.bottom + f.top * bottom;
-    outputFraction.bottom = bottom * f.bottom;
+    outputFraction.top = top * aFraction.bottom + aFraction.top * bottom;
+    outputFraction.bottom = bottom * aFraction.bottom;
     return outputFraction;
 }
 
-Fraction Fraction::subtract(Fraction f) {
+Fraction Fraction::subtract(Fraction aFraction) {
     Fraction outputFraction;
-    outputFraction.top = top * f.bottom - f.top * bottom;
-    outputFraction.bottom = bottom * f.bottom;
+    outputFraction.top = top * aFraction.bottom - aFraction.top * bottom;
+    outputFraction.bottom = bottom * aFraction.bottom;
     return outputFraction;
 }
 
-Fraction Fraction::multipliedBy(Fraction f) {
+Fraction Fraction::multipliedBy(Fraction aFraction) {
     Fraction outputFraction;
-    outputFraction.top = top * f.top;
-    outputFraction.bottom = bottom * f.bottom;
+    outputFraction.top = top * aFraction.top;
+    outputFraction.bottom = bottom * aFraction.bottom;
     return outputFraction;
 }
 
-Fraction Fraction::dividedBy(Fraction f) {
+Fraction Fraction::dividedBy(Fraction aFraction) {
     Fraction outputFraction;
-    outputFraction.top = top * f.bottom;
-    outputFraction.bottom = bottom * f.top;
+    outputFraction.top = top * aFraction.bottom;
+    outputFraction.bottom = bottom * aFraction.top;
     return outputFraction;
 }
 
-bool Fraction::isEqualTo(Fraction f) {
-    return (top * f.bottom == bottom * f.top);
+bool Fraction::isEqualTo(Fraction aFraction) {
+    return (top * aFraction.bottom == bottom * aFraction.top);
 }
 
 void Fraction::print() {
