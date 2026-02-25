@@ -8,7 +8,7 @@ private:
     int bottom; // the bottom number (denominator)
 
 public:
-    void set(int n, int d);
+    void set(int numerator, int denominator);
     Fraction addedTo(Fraction f);
     Fraction subtract(Fraction f);
     Fraction multipliedBy(Fraction f);
@@ -20,9 +20,9 @@ public:
 
 // Implementation of member functions
 
-void Fraction::set(int n, int d) {
-    top = n;
-    bottom = d;
+void Fraction::set(int numerator, int denominator) {
+    top = numerator;
+    bottom = denominator;
 }
 
 Fraction Fraction::addedTo(Fraction f) {
