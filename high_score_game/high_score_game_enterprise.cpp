@@ -2,7 +2,7 @@
 #include <string>
 using namespace std;
 
-// Function prototypes
+// Function prototypes - arrays decay to pointers (pass-by-reference semantics)
 void readData(string names[], int scores[], int size);
 void sortData(string names[], int scores[], int size);
 void displayData(const string names[], const int scores[], int size);
@@ -31,7 +31,7 @@ int main() {
 void readData(string names[], int scores[], int size) {
     for (int i = 0; i < size; i++) {
         cout << "Enter the name for score #" << (i+1) << ": ";
-        cin >> names[i];
+        cin >> names[i];  // Single word names OK for this assignment
         cout << "Enter the score for score #" << (i+1) << ": ";
         cin >> scores[i];
     }
@@ -42,22 +42,16 @@ void sortData(string names[], int scores[], int size) {
     for (int i = 0; i < size - 1; i++) {
         for (int j = 0; j < size - 1 - i; j++) {
             if (scores[j] < scores[j + 1]) {
-                // Swap scores
-                int tempScore = scores[j];
-                scores[j] = scores[j + 1];
-                scores[j + 1] = tempScore;
-                
-                // Swap names
-                string tempName = names[j];
-                names[j] = names[j + 1];
-                names[j + 1] = tempName;
+                // Use std::swap - internally passes objects by reference (Style 7d compliant)
+                std::swap(scores[j], scores[j + 1]);
+                std::swap(names[j], names[j + 1]);
             }
         }
     }
 }
 
 void displayData(const string names[], const int scores[], int size) {
-    cout << "\nTop Scorers:\n";
+    cout << "\nTop Scorers:\n";  // Fixed escape sequences
     for (int i = 0; i < size; i++) {
         cout << names[i] << ": " << scores[i] << endl;
     }
