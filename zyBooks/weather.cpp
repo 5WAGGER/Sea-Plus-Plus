@@ -5,43 +5,45 @@ using namespace std;
 
 class Tuesday {
    public:
-      void SetWeather(string tuesdayWeather);      
-      void SetTemperature(double tuesdayTemperature);      
-      string GetWeather() const;     
-      double GetTemperature() const;        
+      void SetWeather(string tuesdayWeather); 
+      void SetHumidity(double tuesdayHumidity);      
+      string GetWeather() const;                        
+      double GetHumidity() const;                        
+      void Print() const;              
    private:
       string weather;
-      double temperature;
+      double humidity;
 };
 
 void Tuesday::SetWeather(string tuesdayWeather) {
    weather = tuesdayWeather;
 }
 
-void Tuesday::SetTemperature(double tuesdayTemperature) {
-   temperature = tuesdayTemperature;
+void Tuesday::SetHumidity(double tuesdayHumidity) {
+   humidity = tuesdayHumidity;
 }
 
 string Tuesday::GetWeather() const {
    return weather;
 }
 
-double Tuesday::GetTemperature() const {
-   return temperature;
+double Tuesday::GetHumidity() const {
+   return humidity;
 }
 
 int main() {
    Tuesday weather;
    string inputWeather;
-   double inputTemperature;
+   double inputHumidity;
 
    cin >> inputWeather;
-   cin >> inputTemperature;
+   cin >> inputHumidity;
+   
    weather.SetWeather(inputWeather);
-   weather.SetTemperature(inputTemperature);
-
-   cout << "Tuesday: " << weather.GetWeather() << endl;
-   cout << "Temperature: " << fixed << setprecision(1) << weather.GetTemperature() << " degrees Celsius" << endl;
+   weather.SetHumidity(inputHumidity);
+ 
+   cout << "Today's weather is " << weather.GetWeather();
+   cout << ", " << fixed << setprecision(1) << weather.GetHumidity() << "%" << endl;
 
    return 0;
 }
