@@ -1,16 +1,15 @@
- /* 
-  * Quentin Jeriko
-  * COMS 215
-  * 2/9/2026
-  * Project 7.4
-
-  * This program allows the player to play a simple version of blackjack.
-  * The program generates a random number between 1 and 10 each time the player gets a card. 
-  * Each of the values (1 through 10) are equally likely. 
-  * It keeps the running total of the player's cards, and ask the player whether or not it should deal another card. 
-  * When the player hits 21 exactly, the program should print "Congratulations!" and then ask if the player wants to play again.
-  * When player exceeds 21, the program should print "Bust." and then ask if the player wants to play again. 
-  */
+    /*
+     * Quentin Jeriko
+     * COMS 215
+     * 9/3/2026
+     * Project 7.4
+     * This program allows the player to play a modified version of blackjack.
+     * This program generates a random number between 1 and 10 each time the player gets a card.
+     * Each of the numbers are equally likely
+     * It keeps the total of the player's cards, and asks the player whether or not it should deal another card.
+     * When the player hits 21 exactly, the program will print "Congratulations!" and then ask if the player wants to play again.
+     * When the player exceeds 21m the program will print "Bust" and then ask if the player wants to play again. 
+     */
 
 #include <iostream>
 #include <string>
@@ -20,41 +19,39 @@
 using namespace std;
 
 int main(){
-    //This function call uses the clock time to initialize the random number generator
+    //this fuction call uses the clock time to initatialize the random number generator
     //srand(static_cast<unsigned>(time(nullptr)));
-
     //initializing all variables
+
     int range = 10;
     int firstCard;
     int secondCard;
     int nextCard;
     bool hasWon;
     char input;
-    bool gameIsGoing;
     bool roundIsGoing;
     char answer;
     int total;
     bool busted;
     answer = 'y';
-    
+
     //start asking to play (potentially multiple) round(s)
-    while (answer == 'y' && gameIsGoing) {
-        //starting round (game is Going)
-        // start of round
+    while (answer == 'y') {
+        //start of game
+
         total = 0;
         hasWon = false;
         busted = false;
-        gameIsGoing = true;
-        roundIsGoing = true;
+        roundIsGoing = true; 
         firstCard = rand() % range + 1;
         secondCard = rand() % range + 1;
         cout << "First cards: " << firstCard << ", " << secondCard << endl;
         total = firstCard + secondCard;
         cout << "Total: " << total << endl;
-        
-        //start of round
-        // start gameIsGoing loop
+
+        // start roundIsGoing loop
         while (total < 21 && roundIsGoing) {
+            //start of round
             cout << "Do you want another card (y/n)? ";
             cin >> input;
 
@@ -62,7 +59,7 @@ int main(){
                 roundIsGoing = false;
             }
 
-            if (input == 'y') {
+            if (input == 'y'){
                 nextCard = rand() % range;
                 nextCard++;
                 cout << "Card: " << nextCard << endl;
@@ -78,7 +75,7 @@ int main(){
                 busted = true;
             }
 
-        }// round is finished
+        }//round is finished
 
     //output of finished round
 
@@ -88,13 +85,13 @@ int main(){
     if (hasWon) {
         cout << "Congratulations!" << endl;
     }
-    
-    // asking for another round
+
+    //asking for another round
 
     cout << "Would you like to play again (y/n)? ";
     cin >> answer;
 
-    }//done askingToPlayMore
+    }//done asking for another round / end of while (answer == 'y')
 
 return 0;
-}// program complete
+}//program complete
