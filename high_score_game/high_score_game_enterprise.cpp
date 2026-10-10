@@ -32,3 +32,43 @@ int main() {
     int* scores = new int[size];
 
     readData(names, scores, size);
+    sortData(names, scores, size);
+    displayData(names, scores, size);
+
+    // Deallocate the dynamic arrays
+    delete[] names;
+    delete[] scores;
+
+    return 0;
+}
+
+void readData(string names[], int scores[], int size) {
+    for (int i = 0; i < size; i++) {
+        cout << "Enter the name for score #" << (i + 1) << ": ";
+        cin >> names[i];
+
+        cout << "Enter the score for score #" << (i + 1) << ": ";
+        cin >> scores[i];
+    }
+}
+
+void sortData(string names[], int scores[], int size) {
+    // Bubble sort in descending order
+    for (int i = 0; i < size - 1; i++) {
+        for (int z = 0; z < size - 1 - i; z++) {
+            if (scores[z] < scores[z + 1]) {
+                // Swap adjacent scores and their corresponding names
+                std::swap(scores[z], scores[z + 1]);
+                std::swap(names[z], names[z + 1]);
+            }
+        }
+    }
+}
+
+void displayData(const string names[], const int scores[], int size) {
+    cout << "\nTop Scorers:\n";
+
+    for (int i = 0; i < size; i++) {
+        cout << names[i] << ": " << scores[i] << endl;
+    }
+}
