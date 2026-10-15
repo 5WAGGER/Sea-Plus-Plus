@@ -1,39 +1,6 @@
-/*
-    File:  project17_1.cpp
-
-    This program implements and tests several functions that work with
-    null-terminated C-style strings.
-
-    Dave Harden
-    10/15/26
-    CS 215
-    Assignment 17.1
-
-    CLASS INVARIANT: Every C-style string passed into these functions must be
-    null-terminated. Each function assumes that its char array parameter
-    contains a valid null terminator ('\0').
-
-    int lastIndexOf(const char* inString, char target);
-        post: the last index at which target appears in inString is returned.
-              If target does not appear in inString, -1 is returned.
-
-    void reverse(char* inString);
-        post: the characters in inString have been reversed in place.
-
-    int replace(char* inString, char target, char replacementChar);
-        post: every occurrence of target in inString has been replaced with
-              replacementChar. The number of replacements made is returned.
-
-    bool isPalindrome(const char* inString);
-        post: true is returned if inString is a palindrome, ignoring letter
-              case. Otherwise, false is returned.
-
-    void toupper(char* inString);
-        post: every letter in inString has been converted to uppercase.
-
-    int numLetters(const char* inString);
-        post: the number of alphabetic letters in inString is returned.
-*/
+// CLASS INVARIANT: Every C-style string passed into these functions must be
+// null-terminated. Each function assumes that its char array parameter
+// contains a valid null terminator ('\0').
 
 #include <iostream>
 #include <cctype>
