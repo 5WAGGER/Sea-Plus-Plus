@@ -1,29 +1,48 @@
 /*
-    Project 17.1: C-Style String Functions
-    COMS 215: Programming Concepts and Methodology I
+    File:  project17_1.cpp
 
     This program implements and tests several functions that work with
     null-terminated C-style strings.
 
-    The functions can:
-      - Find the last index of a target character
-      - Reverse a string in place
-      - Replace all occurrences of one character with another
-      - Determine whether a string is a palindrome, ignoring case
-      - Convert a string to uppercase
-      - Count the number of letters in a string
+    Dave Harden
+    10/15/26
+    CS 215
+    Assignment 17.1
 
-    The main() function tests each function using a variety of sample
-    C-style strings and displays the results.
+    CLASS INVARIANT: Every C-style string passed into these functions must be
+    null-terminated. Each function assumes that its char array parameter
+    contains a valid null terminator ('\0').
+
+    int lastIndexOf(const char* inString, char target);
+        post: the last index at which target appears in inString is returned.
+              If target does not appear in inString, -1 is returned.
+
+    void reverse(char* inString);
+        post: the characters in inString have been reversed in place.
+
+    int replace(char* inString, char target, char replacementChar);
+        post: every occurrence of target in inString has been replaced with
+              replacementChar. The number of replacements made is returned.
+
+    bool isPalindrome(const char* inString);
+        post: true is returned if inString is a palindrome, ignoring letter
+              case. Otherwise, false is returned.
+
+    void toupper(char* inString);
+        post: every letter in inString has been converted to uppercase.
+
+    int numLetters(const char* inString);
+        post: the number of alphabetic letters in inString is returned.
 */
-
-
 
 #include <iostream>
 #include <cctype>
 using namespace std;
 
-// Returns the last index where target appears in inString, or -1 if absent.
+
+
+// Returns the last index where target appears in inString.
+// Returns -1 if target does not appear in the string.
 int lastIndexOf(const char* inString, char target) {
     int lastIndex = -1;
     int index = 0;
@@ -38,12 +57,14 @@ int lastIndexOf(const char* inString, char target) {
     return lastIndex;
 }
 
-// Reverses inString in place.
+
+
+
+// Reverses the characters in inString in place.
 void reverse(char* inString) {
     int front = 0;
     int back = 0;
 
-    // Find the index of the null terminator.
     while (inString[back] != '\0') {
         back++;
     }
@@ -56,7 +77,10 @@ void reverse(char* inString) {
     }
 }
 
-// Replaces every target character with replacementChar.
+
+
+
+// Replaces every occurrence of target in inString with replacementChar.
 // Returns the number of replacements made.
 int replace(char* inString, char target, char replacementChar) {
     int count = 0;
@@ -73,12 +97,15 @@ int replace(char* inString, char target, char replacementChar) {
     return count;
 }
 
+
+
+
 // Returns true if inString is a palindrome, ignoring letter case.
+// Returns false otherwise.
 bool isPalindrome(const char* inString) {
     int front = 0;
     int back = 0;
 
-    // Find the index of the null terminator.
     while (inString[back] != '\0') {
         back++;
     }
@@ -95,6 +122,9 @@ bool isPalindrome(const char* inString) {
     return true;
 }
 
+
+
+
 // Converts every letter in inString to uppercase.
 void toupper(char* inString) {
     int index = 0;
@@ -104,6 +134,9 @@ void toupper(char* inString) {
         index++;
     }
 }
+
+
+
 
 // Returns the number of alphabetic letters in inString.
 int numLetters(const char* inString) {
@@ -120,6 +153,10 @@ int numLetters(const char* inString) {
     return count;
 }
 
+
+
+
+// Tests each C-style string function using several sample strings.
 int main() {
     // Test lastIndexOf()
     char search1[] = "banana";
@@ -127,16 +164,16 @@ int main() {
     char search3[] = "abcdef";
 
     cout << "lastIndexOf(\"banana\", 'a'): "
-         << lastIndexOf(search1, 'a') << endl; // 5
+         << lastIndexOf(search1, 'a') << endl;
 
     cout << "lastIndexOf(\"Hello World\", 'l'): "
-         << lastIndexOf(search2, 'l') << endl; // 9
+         << lastIndexOf(search2, 'l') << endl;
 
     cout << "lastIndexOf(\"abcdef\", 'z'): "
-         << lastIndexOf(search3, 'z') << endl; // -1
+         << lastIndexOf(search3, 'z') << endl;
 
     cout << "lastIndexOf(\"banana\", 'B'): "
-         << lastIndexOf(search1, 'B') << endl; // -1, case sensitive
+         << lastIndexOf(search1, 'B') << endl;
 
     // Test reverse()
     char word1[] = "flower";
@@ -149,10 +186,10 @@ int main() {
     reverse(word3);
     reverse(word4);
 
-    cout << "\nreverse(\"flower\"): " << word1 << endl; // rewolf
-    cout << "reverse(\"abc\"): " << word2 << endl;      // cba
-    cout << "reverse(\"a\"): " << word3 << endl;        // a
-    cout << "reverse(\"\"): " << word4 << endl;         // empty
+    cout << "\nreverse(\"flower\"): " << word1 << endl;
+    cout << "reverse(\"abc\"): " << word2 << endl;
+    cout << "reverse(\"a\"): " << word3 << endl;
+    cout << "reverse(\"\"): " << word4 << endl;
 
     // Test replace()
     char replace1[] = "Mississippi";
@@ -161,15 +198,15 @@ int main() {
 
     cout << "\nreplace(\"Mississippi\", 's', '$'): "
          << replace(replace1, 's', '$') << endl;
-    cout << "Result: " << replace1 << endl; // Mi$$i$$ippi
+    cout << "Result: " << replace1 << endl;
 
     cout << "replace(\"Hello\", 'z', '?'): "
-         << replace(replace2, 'z', '?') << endl; // 0
-    cout << "Result: " << replace2 << endl;      // Hello
+         << replace(replace2, 'z', '?') << endl;
+    cout << "Result: " << replace2 << endl;
 
     cout << "replace(\"aaa\", 'a', 'b'): "
-         << replace(replace3, 'a', 'b') << endl; // 3
-    cout << "Result: " << replace3 << endl;      // bbb
+         << replace(replace3, 'a', 'b') << endl;
+    cout << "Result: " << replace3 << endl;
 
     // Test isPalindrome()
     char palindrome1[] = "abba";
@@ -181,25 +218,25 @@ int main() {
     char palindrome7[] = "b";
 
     cout << "\nisPalindrome(\"abba\"): "
-         << boolalpha << isPalindrome(palindrome1) << endl; // true
+         << boolalpha << isPalindrome(palindrome1) << endl;
 
     cout << "isPalindrome(\"aBbA\"): "
-         << isPalindrome(palindrome2) << endl; // true
+         << isPalindrome(palindrome2) << endl;
 
     cout << "isPalindrome(\"abc cba\"): "
-         << isPalindrome(palindrome3) << endl; // true
+         << isPalindrome(palindrome3) << endl;
 
     cout << "isPalindrome(\"abc ba\"): "
-         << isPalindrome(palindrome4) << endl; // false
+         << isPalindrome(palindrome4) << endl;
 
     cout << "isPalindrome(\"n$aa$n\"): "
-         << isPalindrome(palindrome5) << endl; // true
+         << isPalindrome(palindrome5) << endl;
 
     cout << "isPalindrome(\"\"): "
-         << isPalindrome(palindrome6) << endl; // true
+         << isPalindrome(palindrome6) << endl;
 
     cout << "isPalindrome(\"b\"): "
-         << isPalindrome(palindrome7) << endl; // true
+         << isPalindrome(palindrome7) << endl;
 
     // Test toupper()
     char upper1[] = "Hello World";
@@ -221,16 +258,16 @@ int main() {
     char letters4[] = "";
 
     cout << "\nnumLetters(\"Hello World\"): "
-         << numLetters(letters1) << endl; // 10
+         << numLetters(letters1) << endl;
 
     cout << "numLetters(\"C++ is fun!\"): "
-         << numLetters(letters2) << endl; // 7
+         << numLetters(letters2) << endl;
 
     cout << "numLetters(\"12345!!!\"): "
-         << numLetters(letters3) << endl; // 0
+         << numLetters(letters3) << endl;
 
     cout << "numLetters(\"\"): "
-         << numLetters(letters4) << endl; // 0
+         << numLetters(letters4) << endl;
 
     return 0;
 }
