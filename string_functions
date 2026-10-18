@@ -1,11 +1,7 @@
-// CLASS INVARIANT: Every C-style string passed into these functions must be
-// null-terminated. Each function assumes that its char array parameter
-// contains a valid null terminator ('\0').
-
 #include <iostream>
 #include <cctype>
+#include <utility>
 using namespace std;
-
 
 
 // Returns the last index where target appears in inString.
@@ -25,8 +21,6 @@ int lastIndexOf(const char* inString, char target) {
 }
 
 
-
-
 // Reverses the characters in inString in place.
 void reverse(char* inString) {
     int front = 0;
@@ -38,13 +32,11 @@ void reverse(char* inString) {
     back--;
 
     while (front < back) {
-        swap(inString[front], inString[back]);
+        std::swap(inString[front], inString[back]);
         front++;
         back--;
     }
 }
-
-
 
 
 // Replaces every occurrence of target in inString with replacementChar.
@@ -65,10 +57,8 @@ int replace(char* inString, char target, char replacementChar) {
 }
 
 
-
-
 // Returns true if inString is a palindrome, ignoring letter case.
-// Returns false otherwise.
+// Spaces, punctuation, and digits are included in comparisons.
 bool isPalindrome(const char* inString) {
     int front = 0;
     int back = 0;
@@ -79,9 +69,11 @@ bool isPalindrome(const char* inString) {
     back--;
 
     while (front < back) {
-        if (tolower(inString[front]) != tolower(inString[back])) {
+        if (std::tolower(static_cast<unsigned char>(inString[front])) !=
+            std::tolower(static_cast<unsigned char>(inString[back]))) {
             return false;
         }
+
         front++;
         back--;
     }
@@ -90,19 +82,16 @@ bool isPalindrome(const char* inString) {
 }
 
 
-
-
 // Converts every letter in inString to uppercase.
 void toupper(char* inString) {
     int index = 0;
 
     while (inString[index] != '\0') {
-        inString[index] = toupper(inString[index]);
+        inString[index] = static_cast<char>(
+            std::toupper(static_cast<unsigned char>(inString[index])));
         index++;
     }
 }
-
-
 
 
 // Returns the number of alphabetic letters in inString.
@@ -111,7 +100,7 @@ int numLetters(const char* inString) {
     int index = 0;
 
     while (inString[index] != '\0') {
-        if (isalpha(inString[index])) {
+        if (std::isalpha(static_cast<unsigned char>(inString[index]))) {
             count++;
         }
         index++;
@@ -119,8 +108,6 @@ int numLetters(const char* inString) {
 
     return count;
 }
-
-
 
 
 // Tests each C-style string function using several sample strings.
