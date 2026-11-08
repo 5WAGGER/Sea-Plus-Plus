@@ -77,4 +77,79 @@ public:
         const Fraction& inputFraction);
 
     // Postcondition: Returns whether the first operand is less
-    // than the second.
+    // than the second. Neither operand is changed.
+    friend bool operator<(
+        const Fraction& firstFraction,
+        const Fraction& inputFraction);
+
+    // Postcondition: Returns whether the first operand is less
+    // than or equal to the second. Neither operand is changed.
+    friend bool operator<=(
+        const Fraction& firstFraction,
+        const Fraction& inputFraction);
+
+    // Postcondition: Returns whether the first operand is greater
+    // than the second. Neither operand is changed.
+    friend bool operator>(
+        const Fraction& firstFraction,
+        const Fraction& inputFraction);
+
+    // Postcondition: Returns whether the first operand is greater
+    // than or equal to the second. Neither operand is changed.
+    friend bool operator>=(
+        const Fraction& firstFraction,
+        const Fraction& inputFraction);
+
+    // Postcondition: Returns whether the operands have equal
+    // values. Neither operand is changed.
+    friend bool operator==(
+        const Fraction& firstFraction,
+        const Fraction& inputFraction);
+
+    // Postcondition: Returns whether the operands have different
+    // values. Neither operand is changed.
+    friend bool operator!=(
+        const Fraction& firstFraction,
+        const Fraction& inputFraction);
+
+    // Postcondition: Adds inputFraction to the calling object,
+    // stores the reduced result, and returns the calling object
+    // by reference.
+    Fraction& operator+=(const Fraction& inputFraction);
+
+    // Postcondition: Subtracts inputFraction from the calling
+    // object, stores the reduced result, and returns the calling
+    // object by reference.
+    Fraction& operator-=(const Fraction& inputFraction);
+
+    // Postcondition: Multiplies the calling object by
+    // inputFraction, stores the reduced result, and returns
+    // the calling object by reference.
+    Fraction& operator*=(const Fraction& inputFraction);
+
+    // Precondition: inputFraction is not zero.
+    // Postcondition: Divides the calling object by inputFraction,
+    // stores the reduced result, and returns the calling object
+    // by reference.
+    Fraction& operator/=(const Fraction& inputFraction);
+
+    // Postcondition: Adds one to the calling object, keeps it
+    // reduced, and returns the updated object by reference.
+    Fraction& operator++();
+
+    // Postcondition: Subtracts one from the calling object, keeps
+    // it reduced, and returns the updated object by reference.
+    Fraction& operator--();
+
+    // Postcondition: Adds one to the calling object, keeps it
+    // reduced, and returns its original value by value.
+    Fraction operator++(int);
+
+    // Postcondition: Subtracts one from the calling object, keeps
+    // it reduced, and returns its original value by value.
+    Fraction operator--(int);
+};
+
+} // namespace cs_fraction
+
+#endif
