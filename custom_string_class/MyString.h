@@ -1,7 +1,6 @@
-/*
- * MyString.h
- * Declares a string class that uses a dynamic character array.
- */
+// MyString.h
+  //Declares a string class that uses a dynamic character array.
+ 
 
 #ifndef CS_MYSTRING_H
 #define CS_MYSTRING_H
